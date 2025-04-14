@@ -166,7 +166,7 @@ const ContactForm = () => {
 
 
 
-<div className="flex flex-col gap-2">
+<div className="flex flex-col gap-2 w-full max-w-md mx-auto">
   <Label htmlFor="service_needed" className="text-sm text-yellow-500 font-medium">
     Qanday xizmat kerak?
   </Label>
@@ -176,7 +176,7 @@ const ContactForm = () => {
     onChange={handleChange}
     className={
       inputClass("service_needed") +
-      " p-3 text-sm bg-zinc-900 text-yellow-500"
+      " w-full p-3 text-sm bg-zinc-900 text-yellow-500 rounded-md"
     }
   >
     <option className="text-yellow-500" value="Telegram bot">Telegram bot</option>
@@ -189,6 +189,7 @@ const ContactForm = () => {
     <span className="text-red-500 text-xs">{formErrors.service_needed}</span>
   )}
 </div>
+
 
 
 
