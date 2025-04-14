@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { motion, AnimatePresence } from "framer-motion";
-import { RiTelegram2Fill } from "react-icons/ri";
+import { RiPhoneFill, RiTelegram2Fill } from "react-icons/ri";
 import Image from "next/image";
 import RainEffect from "../RainEffect";
 
@@ -29,7 +29,7 @@ const ContactForm = () => {
     project_info: "",
     budget: "",
     similar_project: "",
-    currency: "UZS",
+    currency: "USD",
   });
 
   const [formErrors, setFormErrors] = useState<Record<ContactField, string>>({
@@ -40,7 +40,7 @@ const ContactForm = () => {
     project_info: "",
     budget: "",
     similar_project: "",
-    currency: "UZS",
+    currency: "USD",
   });
 
   const [showModal, setShowModal] = useState<null | "success" | "error">(null);
@@ -105,7 +105,7 @@ const ContactForm = () => {
         project_info: "",
         budget: "",
         similar_project: "",
-        currency: "UZS",
+        currency: "USD",
       });
     } catch (error) {
       console.error("Xatolik:", error);
@@ -141,28 +141,56 @@ const ContactForm = () => {
             className="flex flex-col gap-6"
           >
             {[
-              { id: "full_name", label: "To'liq Ism", placeholder: "Ismingiz" },
-              { id: "phone", label: "Telefon raqam", placeholder: "+998..." },
-              { id: "telegram", label: "Telegram Username", placeholder: "@yourusername" },
-              { id: "service_needed", label: "Qanday xizmat kerak?", placeholder: "Masalan: Telegram bot..." },
-              { id: "similar_project", label: "O'xshash loyiha", placeholder: "Website nomi yoki link" },
-            ].map(({ id, label, placeholder }) => (
-              <div className="flex flex-col gap-2" key={id}>
-                <Label htmlFor={id} className="text-sm text-yellow-500 font-medium">
-                  {label}
-                </Label>
-                <Input
-                  id={id}
-                  placeholder={placeholder}
-                  value={formData[id as ContactField]}
-                  onChange={handleChange}
-                  className={inputClass(id as ContactField)}
-                />
-                {formErrors[id as ContactField] && (
-                  <span className="text-red-500 text-xs">{formErrors[id as ContactField]}</span>
-                )}
-              </div>
-            ))}
+  { id: "full_name", label: "To'liq Ism", placeholder: "Ismingiz" },
+  { id: "phone", label: "Telefon raqam", placeholder: "+998..." },
+  { id: "telegram", label: "Telegram Username", placeholder: "@yourusername" },
+  { id: "similar_project", label: "O'xshash loyiha", placeholder: "Website nomi yoki link" },
+].map(({ id, label, placeholder }) => (
+  <div className="flex flex-col gap-2" key={id}>
+    <Label htmlFor={id} className="text-sm text-yellow-500 font-medium">
+      {label}
+    </Label>
+    <Input
+      id={id}
+      placeholder={placeholder}
+      value={formData[id as ContactField]}
+      onChange={handleChange}
+      className={inputClass(id as ContactField)}
+    />
+    {formErrors[id as ContactField] && (
+      <span className="text-red-500 text-xs">{formErrors[id as ContactField]}</span>
+    )}
+  </div>
+))}
+
+
+
+
+<div className="flex flex-col gap-2">
+  <Label htmlFor="service_needed" className="text-sm text-yellow-500 font-medium">
+    Qanday xizmat kerak?
+  </Label>
+  <select
+    id="service_needed"
+    value={formData.service_needed}
+    onChange={handleChange}
+    className={
+      inputClass("service_needed") +
+      " p-3 text-sm bg-zinc-900 text-yellow-500"
+    }
+  >
+    <option className="text-yellow-500" value="Telegram bot">Telegram bot</option>
+    <option className="text-yellow-500" value="Web sayt">Web sayt</option>
+    <option className="text-yellow-500" value="Mobil ilova">Mobil ilova</option>
+    <option className="text-yellow-500" value="CRM/ERP tizimi">CRM/ERP tizimi</option>
+    <option className="text-yellow-500" value="Boshqa">Boshqa</option>
+  </select>
+  {formErrors.service_needed && (
+    <span className="text-red-500 text-xs">{formErrors.service_needed}</span>
+  )}
+</div>
+
+
 
             <div className="flex flex-col gap-2">
               <Label htmlFor="project_info" className="text-sm text-yellow-500 font-medium">
@@ -217,13 +245,28 @@ const ContactForm = () => {
               )}
             </div>
 
-            <Button
-              type="submit"
-              className="w-full bg-gradient-to-r from-yellow-400 to-yellow-600 text-zinc-900 hover:bg-yellow-400 font-medium p-4 text-sm rounded-lg shadow-lg transition-all duration-300 hover:scale-105 transform mt-6"
-            >
-              Yuborish
-              <RiTelegram2Fill className="w-5 h-5 ml-2" />
-            </Button>
+            <div className="flex flex-col sm:flex-row gap-4 mt-6 w-full">
+              <Button
+                type="submit"
+                className="flex-1 min-h-[50px] bg-gradient-to-r from-yellow-400 to-yellow-600 text-zinc-900 hover:bg-yellow-400 font-medium px-4 py-3 text-sm rounded-lg shadow-lg transition-all duration-300 hover:scale-105 transform flex items-center justify-center text-center"
+              >
+                Yuborish
+                <RiTelegram2Fill className="w-5 h-5 ml-2" />
+              </Button>
+
+              <a
+                href="tel:+998940811222"
+                className="flex-1 min-h-[50px] bg-gradient-to-r from-yellow-400 to-yellow-600 text-zinc-900 hover:bg-yellow-400 font-medium px-4 py-3 text-sm rounded-lg shadow-lg transition-all duration-300 hover:scale-105 transform flex items-center justify-center text-center"
+              >
+                Tezkor bog&apos;lanish
+                <RiPhoneFill className="w-5 h-5 ml-2" />
+              </a>
+            </div>
+
+
+
+
+
           </motion.form>
         </div>
       </div>
